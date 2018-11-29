@@ -29,9 +29,7 @@ module Telefonica
                     :api_version           => version,
                     :zone                  => Zone.first,
                     :security_protocol     => 'no_ssl',
-                    :keystone_v3_domain_id => 'default',
-                    :domain_name           => domain_name,
-                    :project_name          => project_name }
+                    :keystone_v3_domain_id => 'default'}
 
       @ems = ManageIQ::Providers::Telefonica::CloudManager.joins(:endpoints).where(:endpoints => {
                                                                                     :hostname => hostname}).first
