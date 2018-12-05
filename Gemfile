@@ -24,8 +24,8 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "master"
-c2c_manageiq_plugin "manageiq-schema", "master"
+c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
+c2c_manageiq_plugin "manageiq-schema", "dev"
 
 # Unmodified gems
 gem "activerecord-id_regions",        "~>0.2.0"
@@ -47,7 +47,8 @@ gem "hamlit",                         "~>2.8.5"
 gem "highline",                       "~>1.6.21",      :require => false
 gem "inifile",                        "~>3.0",         :require => false
 gem "inventory_refresh",              "~>0.1.1",       :require => false
-gem "kubeclient",                     "~>2.4",         :require => false # For scaling pods at runtime
+# gem "kubeclient",                     "~>2.4",         :require => false # For scaling pods at runtime
+gem "kubeclient",                     "~>4.0",         :require => false # Change version(2.4 --> 4.0) to solve installation error during bin/setup
 gem "linux_admin",                    "~>1.2.1",       :require => false
 gem "log_decorator",                  "~>0.1",         :require => false
 gem "manageiq-api-client",            "~>0.3.2",       :require => false
@@ -90,10 +91,8 @@ gem "american_date"
 #
 ### providers
 
-#gem 'manageiq-providers-telefonica', :path => '../manageiq-providers-telefonica'
 #gem'manageiq-providers-telefonica' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
-#gem 'manageiq-providers-telefonica', :path => '/home/linux/Demo/manageiq-providers-telefonica'
-c2c_manageiq_plugin "manageiq-providers-telefonica", "master"
+c2c_manageiq_plugin "manageiq-providers-telefonica", "dev"
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
@@ -202,7 +201,7 @@ group :consumption, :manageiq_default do
 end
 
 group :ui_dependencies do # Added to Bundler.require in config/application.rb
-  c2c_manageiq_plugin "manageiq-ui-classic", "master"
+  c2c_manageiq_plugin "manageiq-ui-classic", "dev"
   # Modified gems (forked on Github)
   gem "jquery-rjs",                   "=0.1.1",                       :git => "https://github.com/ManageIQ/jquery-rjs.git", :tag => "v0.1.1-1"
 end
