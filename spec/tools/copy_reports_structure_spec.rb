@@ -5,9 +5,18 @@ require 'copy_reports_structure/report_structure'
 describe ReportStructure do
   let(:group_name) { "SourceGroup" }
   let(:settings) { {"reports_menus" => [["Configuration Management", ["Virtual Machines", ["Vendor and Type"]]]]} }
-  let(:role)  { FactoryGirl.create(:miq_user_role) }
-  let(:source_group) {  FactoryGirl.create(:miq_group, :settings => settings) }
-  let(:destination_group) { FactoryGirl.create(:miq_group, :miq_user_role => role) }
+  let(:role)  { FactoryBot.create(:miq_user_role) }
+  let(:source_group) {  FactoryBot.create(:miq_group, :settings => settings) }
+  let(:destination_group) { FactoryBot.create(:miq_group, :miq_user_role => role) }
+
+  before do
+    @saved_stdout, @saved_stderr = $stdout, $stderr
+    $stdout = $stderr = StringIO.new
+  end
+
+  after do
+    $stdout, $stderr = @saved_stdout, @saved_stderr
+  end
 
   context "copy reports structure" do
     describe ".duplicate_for_group" do
@@ -23,7 +32,7 @@ describe ReportStructure do
         expect(destination_group.settings).to be nil
       end
 
-      it "does not change reports structure on destination group is source group not found" do
+      it "does not change reports structure on destination group if source group not found" do
         expect(ReportStructure).to receive(:abort)
         ReportStructure.duplicate_for_group("Some_Not_existed_Group", source_group.description)
         source_group.reload
@@ -33,7 +42,7 @@ describe ReportStructure do
 
     describe ".duplicate_for_role" do
       before do
-        @destination_group2 = FactoryGirl.create(:miq_group, :miq_user_role => destination_group.miq_user_role)
+        @destination_group2 = FactoryBot.create(:miq_group, :miq_user_role => destination_group.miq_user_role)
       end
 
       it "copies reports structure from one group to role (to all groups having that role)" do
@@ -52,7 +61,7 @@ describe ReportStructure do
         expect(@destination_group2.settings).to be nil
       end
 
-      it "does not change reports structure on group with destination role is source group not found" do
+      it "does not change reports structure on group with destination role if source group not found" do
         destination_group.update(:settings => settings)
         expect(ReportStructure).to receive(:abort)
         ReportStructure.duplicate_for_role("Some_Not_existed_Group", role.name)

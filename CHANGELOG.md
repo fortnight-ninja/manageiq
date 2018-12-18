@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 
+## Unreleased as of Sprint 100 ending 2018-12-03
+
+### Added
+- Add conversion_host option to the SupportsFeatureMixin module [(#18232)](https://github.com/ManageIQ/manageiq/pull/18232)
+- Pass CA when upgrading cluster through Ansible [(#18229)](https://github.com/ManageIQ/manageiq/pull/18229)
+- Upgrade Ovirt Cluster through Ansible [(#18220)](https://github.com/ManageIQ/manageiq/pull/18220)
+- Use MiqQueue for enabling/disabling a conversion_host [(#18191)](https://github.com/ManageIQ/manageiq/pull/18191)
+
+### Fixed
+- Fix miq request ownership [(#18257)](https://github.com/ManageIQ/manageiq/pull/18257)
+- Fix Relationship#grandchildren [(#18239)](https://github.com/ManageIQ/manageiq/pull/18239)
+- Display deprecated as a true/false string [(#18237)](https://github.com/ManageIQ/manageiq/pull/18237)
+- Fix supports_capture assuming MetricsCapture class [(#18233)](https://github.com/ManageIQ/manageiq/pull/18233)
+- Move the backend-generated PDF report's styling from the frontend [(#18226)](https://github.com/ManageIQ/manageiq/pull/18226)
+- Dont return different types in virtual columns [(#18217)](https://github.com/ManageIQ/manageiq/pull/18217)
+- Properly generate report yml include with virtual attributes [(#18205)](https://github.com/ManageIQ/manageiq/pull/18205)
+- Disconnect storage when disconnecting the VM [(#18200)](https://github.com/ManageIQ/manageiq/pull/18200)
+- Report accurate status on inactive VM [(#18181)](https://github.com/ManageIQ/manageiq/pull/18181)
+- Separate queue put from publish event so we don't queue put twice [(#18178)](https://github.com/ManageIQ/manageiq/pull/18178)
+
+## Unreleased as of Sprint 99 ending 2018-11-19
+
+### Added
+- Add owner to orch stack model provisioning [(#18209)](https://github.com/ManageIQ/manageiq/pull/18209)
+- Add Conversion Host features [(#18190)](https://github.com/ManageIQ/manageiq/pull/18190)
+- Add --port to evm:dba rake tasks [(#18186)](https://github.com/ManageIQ/manageiq/pull/18186)
+- Add support for magic check in EvmDatabaseOps [(#18167)](https://github.com/ManageIQ/manageiq/pull/18167)
+- Add PhysicalDisks into Canisters [(#18053)](https://github.com/ManageIQ/manageiq/pull/18053)
+- Raise event on new user creation [(#18052)](https://github.com/ManageIQ/manageiq/pull/18052)
+- Add explicit Endpoint#to_s method to return url [(#17678)](https://github.com/ManageIQ/manageiq/pull/17678)
+
+### Fixed
+- Default connection_status to connected [(#18216)](https://github.com/ManageIQ/manageiq/pull/18216)
+- Accept Hash object as result of inter region api invocation [(#18210)](https://github.com/ManageIQ/manageiq/pull/18210)
+- Add missing V2V menu features. [(#18203)](https://github.com/ManageIQ/manageiq/pull/18203)
+- Remove tenant selection from base deployment options [(#18202)](https://github.com/ManageIQ/manageiq/pull/18202)
+- Save mappings to options hash when calculated [(#18194)](https://github.com/ManageIQ/manageiq/pull/18194)
+- Fix issues with OpenSCAP policy [(#18189)](https://github.com/ManageIQ/manageiq/pull/18189)
+- Don't create retire subtasks for service templates [(#18184)](https://github.com/ManageIQ/manageiq/pull/18184)
+- Authorize user with non-dynamic product feature if included in user's role [(#18179)](https://github.com/ManageIQ/manageiq/pull/18179)
+- Tags without a classification cause errors [(#18177)](https://github.com/ManageIQ/manageiq/pull/18177)
+- Added metrics and tag permissions to SUI permission tree [(#18175)](https://github.com/ManageIQ/manageiq/pull/18175)
+- Don't JSON.parse(nil) [(#18172)](https://github.com/ManageIQ/manageiq/pull/18172)
+- Fix uri dirname parsing for swift restore [(#18166)](https://github.com/ManageIQ/manageiq/pull/18166)
+- Fix OpenStack virt-v2v-wrapper options hash [(#18143)](https://github.com/ManageIQ/manageiq/pull/18143)
+
 ## Unreleased as of Sprint 98 ending 2018-11-05
 
 ### Added

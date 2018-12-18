@@ -47,8 +47,7 @@ gem "hamlit",                         "~>2.8.5"
 gem "highline",                       "~>1.6.21",      :require => false
 gem "inifile",                        "~>3.0",         :require => false
 gem "inventory_refresh",              "~>0.1.1",       :require => false
-# gem "kubeclient",                     "~>2.4",         :require => false # For scaling pods at runtime
-gem "kubeclient",                     "~>4.0",         :require => false # Change version(2.4 --> 4.0) to solve installation error during bin/setup
+gem "kubeclient",                     "~>4.0",         :require => false # For scaling pods at runtime
 gem "linux_admin",                    "~>1.2.1",       :require => false
 gem "log_decorator",                  "~>0.1",         :require => false
 gem "manageiq-api-client",            "~>0.3.2",       :require => false
@@ -64,7 +63,7 @@ gem "openscap",                       "~>0.4.3",       :require => false
 gem "pg",                             "~>0.18.2",      :require => false
 gem "pg-dsn_parser",                  "~>0.1.0",       :require => false
 gem "query_relation",                 "~>0.1.0",       :require => false
-gem "rails",                          "~>5.0.6"
+gem "rails",                          "~>5.0.7.1"
 gem "rails-i18n",                     "~>5.x"
 gem "rake",                           ">=11.0",        :require => false
 gem "rest-client",                    "~>2.0.0",       :require => false
@@ -218,6 +217,7 @@ group :web_server, :manageiq_default do
 end
 
 group :web_socket, :manageiq_default do
+  gem "surro-gate",                     "~>1.0.4"
   gem "websocket-driver",               "~>0.6.3"
 end
 
@@ -240,7 +240,7 @@ unless ENV["APPLIANCE"]
     gem "brakeman",         "~>3.3",    :require => false
     gem "capybara",         "~>2.5.0",  :require => false
     gem "coveralls",                    :require => false
-    gem "factory_girl",     "~>4.5.0",  :require => false
+    gem "factory_bot",      "~>4.11.1", :require => false
     gem "timecop",          "~>0.7.3",  :require => false
     gem "vcr",              "~>3.0.2",  :require => false
     gem "webmock",          "~>2.3.1",  :require => false

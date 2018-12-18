@@ -1,15 +1,15 @@
 describe MiqReport::Generator do
   before do
     EvmSpecHelper.local_miq_server
-    @user = FactoryGirl.create(:user_with_group)
-    @time_profile_all = FactoryGirl.create(:time_profile_with_rollup, :tz => "UTC")
-    @host1 = FactoryGirl.create(:host)
+    @user = FactoryBot.create(:user_with_group)
+    @time_profile_all = FactoryBot.create(:time_profile_with_rollup, :tz => "UTC")
+    @host1 = FactoryBot.create(:host)
   end
 
   describe "#generate" do
     context "Memory Utilization Trends report (daily)" do
       before do
-        @miq_report_profile_all = FactoryGirl.create(
+        @miq_report_profile_all = FactoryBot.create(
           :miq_report,
           :db              => "VimPerformanceTrend",
           :order           => "Ascending",
@@ -27,7 +27,7 @@ describe MiqReport::Generator do
 
       it "returns one row for each host" do
         used_mem_up = [400, 500, 600, 700]
-        @host2 = FactoryGirl.create(:host)
+        @host2 = FactoryBot.create(:host)
         create_rollup(@host1, @time_profile_all, used_mem_up)
         create_rollup(@host2, @time_profile_all, used_mem_up)
         @miq_report_profile_all.generate_table(:userid => @user.userid)
@@ -67,7 +67,7 @@ describe MiqReport::Generator do
     def create_rollup(host, profile, used_mem)
       day_midnight = Time.zone.yesterday.beginning_of_day - used_mem.size.days
       used_mem.size.times do |i|
-        host.metric_rollups << FactoryGirl.create(:metric_rollup_host_daily,
+        host.metric_rollups << FactoryBot.create(:metric_rollup_host_daily,
                                                   :timestamp                => day_midnight + i.day,
                                                   :time_profile_id          => profile.id,
                                                   :derived_memory_used      => used_mem[i],
@@ -161,6 +161,52 @@ describe MiqReport::Generator do
                           :include   => {"host" => { "columns" => %w(name hostname)}}
                          )
       expect(rpt.cols_for_report).to match_array(%w(vendor host.name host.hostname))
+    end
+  end
+
+  describe "#get_include_for_find (private)" do
+    it "returns nil with empty include" do
+      rpt = MiqReport.new(:db      => "VmOrTemplate",
+                          :include => {})
+      expect(rpt.get_include_for_find).to be_nil
+    end
+
+    it "includes virtual_includes from virtual_attributes that are not sql friendly" do
+      rpt = MiqReport.new(:db   => "VmOrTemplate",
+                          :cols => %w(name platform))
+      expect(rpt.get_include_for_find).to eq(:platform => {})
+    end
+
+    it "does not include sql friendly virtual_attributes" do
+      rpt = MiqReport.new(:db   => "VmOrTemplate",
+                          :cols => %w(name v_total_snapshots))
+      expect(rpt.get_include_for_find).to be_nil
+    end
+
+    it "uses include and include_as_hash" do
+      rpt = MiqReport.new(:db               => "VmOrTemplate",
+                          :cols             => %w(name platform),
+                          :include          => {:host => {:columns => %w(name)}, :storage => {:columns => %w(name)}},
+                          :include_for_find => {:snapshots => {}})
+      expect(rpt.get_include_for_find).to eq(:platform => {}, :host => {}, :storage => {}, :snapshots => {})
+    end
+
+    it "uses col, col_order, and virtual attributes and ignores empty include" do
+      # it also allows cols to override col_order for requesting extra columns
+      rpt = MiqReport.new(:db               => "VmOrTemplate",
+                          :include          => {},
+                          :cols             => %w(name num_cpu),
+                          :col_order        => %w(name host.name storage.name),
+                          :include_for_find => {:snapshots => {}})
+      expect(rpt.get_include_for_find).to eq(:num_cpu => {}, :host => {}, :storage => {}, :snapshots => {})
+    end
+
+    it "uses col_order and virtual attributes" do
+      rpt = MiqReport.new(:db               => "VmOrTemplate",
+                          :include          => {},
+                          :col_order        => %w(name num_cpu host.name storage.name),
+                          :include_for_find => {:snapshots => {}})
+      expect(rpt.get_include_for_find).to eq(:num_cpu => {}, :host => {}, :storage => {}, :snapshots => {})
     end
   end
 end
