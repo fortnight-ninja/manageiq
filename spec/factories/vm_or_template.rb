@@ -135,7 +135,7 @@ FactoryBot.define do
     vendor          "telefonica"
     raw_power_state "ACTIVE"
     sequence(:ems_ref) { |n| "some-uuid-#{seq_padded_for_sorting(n)}" }
-    cloud_tenant { FactoryGirl.create(:cloud_tenant_telefonica) }
+    cloud_tenant { FactoryBot.create(:cloud_tenant_telefonica) }
 
     factory :vm_perf_telefonica, :parent => :vm_telefonica do
       ems_ref "telefonica-perf-vm"
@@ -143,7 +143,7 @@ FactoryBot.define do
 
     trait :with_provider do
       after(:create) do |x|
-        FactoryGirl.create(:ems_telefonica, :vms => [x])
+        FactoryBot.create(:ems_telefonica, :vms => [x])
       end
     end
   end

@@ -299,8 +299,8 @@ FactoryBot.define do
   factory :ems_telefonica_with_authentication,
           :parent => :ems_telefonica do
     after :create do |x|
-      x.authentications << FactoryGirl.create(:authentication)
-      x.authentications << FactoryGirl.create(:authentication, :authtype => "amqp")
+      x.authentications << FactoryBot.create(:authentication)
+      x.authentications << FactoryBot.create(:authentication, :authtype => "amqp")
     end
   end
 

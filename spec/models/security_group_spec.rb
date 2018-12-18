@@ -24,7 +24,7 @@ describe SecurityGroup do
         FactoryBot.create(:network_port_openstack,
                            :device          => vm,
                            :security_groups => [sg])
-        FactoryGirl.create(:network_port_telefonica,
+        FactoryBot.create(:network_port_telefonica,
                            :device          => vm,
                            :security_groups => [sg])
       end
