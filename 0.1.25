@@ -1,2 +1,2 @@
-ERROR: "bundle add" was called with arguments ["fog-telefonica,", "/home/ubuntu"]
+ERROR: "bundle add" was called with arguments ["fog-orange,", "/home/ubuntu"]
 Usage: "bundle add GEM VERSION"

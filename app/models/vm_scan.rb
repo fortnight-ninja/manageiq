@@ -101,7 +101,7 @@ class VmScan < Job
       # TODO: should this logic be moved to a VM subclass implementation?
       #       or, make type-specific Job classes.
       if vm.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) ||
-         vm.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Vm) ||
+         vm.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm) ||
          vm.kind_of?(ManageIQ::Providers::Microsoft::InfraManager::Vm)
         return unless create_snapshot(vm)
       elsif vm.kind_of?(ManageIQ::Providers::Azure::CloudManager::Vm) && vm.require_snapshot_for_scan?
@@ -245,7 +245,7 @@ class VmScan < Job
           # TODO: should this logic be moved to a VM subclass implementation?
           #       or, make type-specific Job classes.
           if vm.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) ||
-             vm.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Vm)
+             vm.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm)
              vm.ext_management_system.vm_delete_evm_snapshot(vm, mor)
           elsif vm.kind_of?(ManageIQ::Providers::Microsoft::InfraManager::Vm) ||
                 (vm.kind_of?(ManageIQ::Providers::Azure::CloudManager::Vm) && vm.require_snapshot_for_scan?)
@@ -397,7 +397,7 @@ class VmScan < Job
           else
             user_event = end_user_event_message(vm, false)
             if vm.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) ||
-               vm.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Vm)
+               vm.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm)
               vm.ext_management_system.vm_delete_evm_snapshot(vm, mor)
             elsif vm.kind_of?(ManageIQ::Providers::Microsoft::InfraManager::Vm) ||
                   (vm.kind_of?(ManageIQ::Providers::Azure::CloudManager::Vm) && vm.require_snapshot_for_scan?)

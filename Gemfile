@@ -90,8 +90,8 @@ gem "american_date"
 #
 ### providers
 
-#gem'manageiq-providers-telefonica' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
-c2c_manageiq_plugin "manageiq-providers-telefonica", "dev"
+#gem'manageiq-providers-orange' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-orange.git", :branch=>"dev-aniket"
+c2c_manageiq_plugin "manageiq-providers-orange", "dev"
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
@@ -281,4 +281,4 @@ end
 Dir.glob(File.join(__dir__, 'bundler.d/*.rb')).each { |f| eval_gemfile(File.expand_path(f, __dir__)) }
 
 # Added at 2018-08-29 23:12:07 +0530 by root:
-gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"
+gem "fog-orange", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-orange", :branch => "master"

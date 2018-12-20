@@ -82,8 +82,8 @@ module MiqServer::ServerSmartProxy
         if target.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Vm) ||
            target.kind_of?(ManageIQ::Providers::Openstack::CloudManager::Template)
           timeout_adj = 4
-        elsif target.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Vm) ||
-             target.kind_of?(ManageIQ::Providers::Telefonica::CloudManager::Template)
+        elsif target.kind_of?(ManageIQ::Providers::Orange::CloudManager::Vm) ||
+             target.kind_of?(ManageIQ::Providers::Orange::CloudManager::Template)
             timeout_adj = 4
         elsif target.kind_of?(ManageIQ::Providers::Azure::CloudManager::Vm) ||
               target.kind_of?(ManageIQ::Providers::Azure::CloudManager::Template)

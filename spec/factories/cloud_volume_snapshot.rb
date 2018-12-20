@@ -10,8 +10,8 @@ FactoryBot.define do
     status "available"
   end
 
-  factory :cloud_volume_snapshot_telefonica,
-          :class  => "ManageIQ::Providers::Telefonica::CloudManager::CloudVolumeSnapshot",
+  factory :cloud_volume_snapshot_orange,
+          :class  => "ManageIQ::Providers::Orange::CloudManager::CloudVolumeSnapshot",
           :parent => :cloud_volume_snapshot do
     status "available"
   end

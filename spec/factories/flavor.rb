@@ -7,7 +7,7 @@ FactoryBot.define do
     root_disk_size 1_073_741_824
   end
 
-  factory :flavor_telefonica, :parent => :flavor, :class => "ManageIQ::Providers::Telefonica::CloudManager::Flavor" do
+  factory :flavor_orange, :parent => :flavor, :class => "ManageIQ::Providers::Orange::CloudManager::Flavor" do
     root_disk_size 1_073_741_824
   end
 

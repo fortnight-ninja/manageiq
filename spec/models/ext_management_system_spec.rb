@@ -39,8 +39,8 @@ describe ExtManagementSystem do
       "openstack"                   => "OpenStack",
       "openstack_infra"             => "OpenStack Platform Director",
       "openstack_network"           => "OpenStack Network",
-      "telefonica"                  => "Telefonica",
-      "telefonica_network"          => "Telefonica Network",
+      "orange"                  => "Orange",
+      "orange_network"          => "Orange Network",
       "lenovo_ph_infra"             => "Lenovo XClarity",
       "nuage_network"               => "Nuage Network Manager",
       "redfish_ph_infra"            => "Redfish",
@@ -52,8 +52,8 @@ describe ExtManagementSystem do
       "vmware_cloud_network"        => "VMware Cloud Network",
       "cinder"                      => "Cinder ",
       "swift"                       => "Swift ",
-      "telefonica"                  => "Telefonica",
-      "telefonica_network"          => "Telefonica Network"
+      "orange"                  => "Orange",
+      "orange_network"          => "Orange Network"
     }
   end
 

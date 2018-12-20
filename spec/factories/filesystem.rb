@@ -8,7 +8,7 @@ FactoryBot.define do
     name "etc/nova/nova.conf"
   end
 
-  factory :filesystem_telefonica_conf, :parent => :filesystem do
+  factory :filesystem_orange_conf, :parent => :filesystem do
     name "etc/nova/nova.conf"
   end
 

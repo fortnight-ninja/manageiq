@@ -12,6 +12,6 @@ FactoryBot.define do
                                :parent => :network_port
   factory :network_port_google, :class  => "ManageIQ::Providers::Google::NetworkManager::NetworkPort",
                                 :parent => :network_port
-  factory :network_port_telefonica, :class  => "ManageIQ::Providers::Telefonica::NetworkManager::NetworkPort",
+  factory :network_port_orange, :class  => "ManageIQ::Providers::Orange::NetworkManager::NetworkPort",
                                     :parent => :network_port
 end
