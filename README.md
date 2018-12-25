@@ -56,7 +56,7 @@ Copyright 2014-2019 ManageIQ Authors.
 
 ## Export Notice
 
-By downloading ManageIQ software, you acknowledge that you understand all of the
+By  downloading ManageIQ software, you acknowledge that you understand all of the
 following: ManageIQ software and technical information may be subject to the
 U.S. Export Administration Regulations (the "EAR") and other U.S. and foreign
 laws and may not be exported, re-exported or transferred (a) to any country

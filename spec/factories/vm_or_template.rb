@@ -34,6 +34,14 @@ FactoryBot.define do
   factory :volume_template_openstack, :class => "ManageIQ::Providers::Openstack::CloudManager::VolumeTemplate", :parent => :template_cloud do
     vendor "openstack"
   end
+  
+  factory :template_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::Template", :parent => :template_cloud do
+    vendor "telefonica"
+  end
+
+  factory :volume_template_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::VolumeTemplate", :parent => :template_cloud do
+    vendor "telefonica"
+  end
 
   factory :miq_template do
     name "ubuntu-16.04-stable"
@@ -127,6 +135,23 @@ FactoryBot.define do
     trait :with_provider do
       after(:create) do |x|
         FactoryBot.create(:ems_openstack, :vms => [x])
+      end
+    end
+  end
+
+  factory :vm_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::Vm", :parent => :vm_cloud do
+    vendor          "telefonica"
+    raw_power_state "ACTIVE"
+    sequence(:ems_ref) { |n| "some-uuid-#{seq_padded_for_sorting(n)}" }
+    cloud_tenant { FactoryBot.create(:cloud_tenant_telefonica) }
+
+    factory :vm_perf_telefonica, :parent => :vm_telefonica do
+      ems_ref "telefonica-perf-vm"
+    end
+
+    trait :with_provider do
+      after(:create) do |x|
+        FactoryBot.create(:ems_telefonica, :vms => [x])
       end
     end
   end
