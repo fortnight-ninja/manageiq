@@ -34,6 +34,7 @@ gem "acts_as_tree",                   "~>2.7" # acts_as_tree needs to be require
 gem "ancestry",                       "~>3.0.4",       :require => false
 gem "bcrypt",                         "~> 3.1.10",     :require => false
 gem "bundler",                        ">=1.11.1",      :require => false
+gem "byebug",                                          :require => false
 gem "color",                          "~>1.8"
 gem "config",                         "~>1.6.0",       :require => false
 gem "dalli",                          "=2.7.6",        :require => false
@@ -264,7 +265,13 @@ end
 def override_gem(name, *args)
   if dependencies.any?
     raise "Trying to override unknown gem #{name}" unless (dependency = dependencies.find { |d| d.name == name })
-    dependencies.delete(dependency)
+
+    removed_dependency = dependencies.delete(dependency)
+    if removed_dependency.source.kind_of?(Bundler::Source::Git)
+      @sources.send(:source_list_for, removed_dependency.source).delete_if do |other_source|
+        removed_dependency.source == other_source
+      end
+    end
 
     calling_file = caller_locations.detect { |loc| !loc.path.include?("lib/bundler") }.path
     calling_dir  = File.dirname(calling_file)

@@ -31,7 +31,15 @@ FactoryBot.define do
     vendor "openstack"
   end
 
+  factory :volume_template_openstack, :class => "ManageIQ::Providers::Openstack::CloudManager::VolumeTemplate", :parent => :template_cloud do
+    vendor "openstack"
+  end
+  
   factory :template_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::Template", :parent => :template_cloud do
+    vendor "telefonica"
+  end
+
+  factory :volume_template_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::VolumeTemplate", :parent => :template_cloud do
     vendor "telefonica"
   end
 

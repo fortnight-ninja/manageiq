@@ -1,8 +1,10 @@
 class MiqProductFeature < ApplicationRecord
-  SUPER_ADMIN_FEATURE = "everything".freeze
+  SUPER_ADMIN_FEATURE   = "everything".freeze
   REPORT_ADMIN_FEATURE  = "miq_report_superadmin".freeze
   REQUEST_ADMIN_FEATURE = "miq_request_approval".freeze
-  TENANT_ADMIN_FEATURE = "rbac_tenant".freeze
+  MY_TASKS_FEATURE      = "miq_task_my_ui".freeze
+  ALL_TASKS_FEATURE     = "miq_task_all_ui".freeze
+  TENANT_ADMIN_FEATURE  = "rbac_tenant".freeze
 
   acts_as_tree
 
@@ -143,7 +145,7 @@ class MiqProductFeature < ApplicationRecord
 
   def self.seed_tenant_miq_product_features
     result = with_tenant_feature_root_features.map.each do |tenant_miq_product_feature|
-      Tenant.all.map { |tenant| tenant.build_miq_product_feature(tenant_miq_product_feature) }
+      Tenant.in_my_region.all.map { |tenant| tenant.build_miq_product_feature(tenant_miq_product_feature) }
     end.flatten
 
     MiqProductFeature.create(result).map(&:identifier)
