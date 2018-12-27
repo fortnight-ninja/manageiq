@@ -139,6 +139,17 @@
     search_key: _hidden_
     db: Vm
 - attributes:
+    name: default_Platform / Telefonica
+    description: Platform / Telefonica
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: Vm-type
+          value: ManageIQ::Providers::Telefonica::CloudManager::Vm
+    search_type: default
+    search_key: _hidden_
+    db: Vm
+- attributes:
     name: default_Platform / Redhat
     description: Platform / Redhat
     filter: !ruby/object:MiqExpression

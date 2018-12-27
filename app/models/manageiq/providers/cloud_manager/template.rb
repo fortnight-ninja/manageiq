@@ -15,12 +15,15 @@ class ManageIQ::Providers::CloudManager::Template < ::MiqTemplate
     super.where(:type => %w(ManageIQ::Providers::Amazon::CloudManager::Template
                             ManageIQ::Providers::Openstack::CloudManager::Template
                             ManageIQ::Providers::Orange::CloudManager::Template
+                            ManageIQ::Providers::Telefonica::CloudManager::Template
                             ManageIQ::Providers::Azure::CloudManager::Template
                             ManageIQ::Providers::Google::CloudManager::Template
                             ManageIQ::Providers::Openstack::CloudManager::VolumeTemplate
                             ManageIQ::Providers::Openstack::CloudManager::VolumeSnapshotTemplate
                             ManageIQ::Providers::Orange::CloudManager::VolumeTemplate
-                            ManageIQ::Providers::Orange::CloudManager::VolumeSnapshotTemplate))
+                            ManageIQ::Providers::Orange::CloudManager::VolumeSnapshotTemplate
+                            ManageIQ::Providers::Telefonica::CloudManager::VolumeTemplate
+                            ManageIQ::Providers::Telefonica::CloudManager::VolumeSnapshotTemplate))
   end
 
   def self.class_by_ems(ext_management_system)

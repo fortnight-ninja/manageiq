@@ -24,7 +24,13 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
+def c2c_combo_plugin(plugin_name)
+  unless dependencies.detect { |d| d.name == plugin_name }
+    gem plugin_name, :git => "https://github.com/Pratik1Awchat/#{plugin_name}", :branch => "master"
+  end
+end
+
+manageiq_plugin "manageiq-providers-ansible_tower"
 c2c_manageiq_plugin "manageiq-schema", "dev"
 
 # Unmodified gems
@@ -91,7 +97,13 @@ gem "american_date"
 ### providers
 
 #gem'manageiq-providers-orange' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-orange.git", :branch=>"dev-aniket"
-c2c_manageiq_plugin "manageiq-providers-orange", "dev"
+group :telefonica, :manageiq_default do
+  c2c_combo_plugin "manageiq-providers-telefonica"
+end
+
+group :orange, :manageiq_default do
+  c2c_combo_plugin "manageiq-providers-orange"
+end
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
@@ -200,7 +212,7 @@ group :consumption, :manageiq_default do
 end
 
 group :ui_dependencies do # Added to Bundler.require in config/application.rb
-  c2c_manageiq_plugin "manageiq-ui-classic", "dev"
+  c2c_manageiq_plugin "manageiq-ui-classic", "dev-orange-combo"
   # Modified gems (forked on Github)
   gem "jquery-rjs",                   "=0.1.1",                       :git => "https://github.com/ManageIQ/jquery-rjs.git", :tag => "v0.1.1-1"
 end
@@ -279,6 +291,3 @@ end
 # Load other additional Gemfiles
 #   Developers can create a file ending in .rb under bundler.d/ to specify additional development dependencies
 Dir.glob(File.join(__dir__, 'bundler.d/*.rb')).each { |f| eval_gemfile(File.expand_path(f, __dir__)) }
-
-# Added at 2018-08-29 23:12:07 +0530 by root:
-gem "fog-orange", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-orange", :branch => "master"

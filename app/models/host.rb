@@ -1387,6 +1387,13 @@ class Host < ApplicationRecord
               Benchmark.realtime_block(:refresh_orange_services) { refresh_orange_services(ssu) }
             end
 
+            #Click2Cloud: refresh_telefonica_services should run after refresh_services and refresh_fs_files
+            if respond_to?(:refresh_telefonica_services)
+              _log.info("Refreshing Telefonica Services for #{log_target}")
+              task.update_status("Active", "Ok", "Refreshing Telefonica Services") if task
+              Benchmark.realtime_block(:refresh_telefonica_services) { refresh_telefonica_services(ssu) }
+            end
+
             save
           end
         rescue MiqException::MiqSshUtilHostKeyMismatch
