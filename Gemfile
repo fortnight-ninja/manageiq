@@ -17,6 +17,11 @@ def manageiq_plugin(plugin_name)
   end
 end
 
+def manageiq_orange_plugin(plugin_name)
+  unless dependencies.detect { |d| d.name == plugin_name }
+    gem plugin_name, :git => "https://github.com/Pratik1Awchat/#{plugin_name}", :branch => "master"
+  end
+end
 
 def c2c_manageiq_plugin(plugin_name, branch_name)
   unless dependencies.detect { |d| d.name == plugin_name }
@@ -24,7 +29,7 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
+manageiq_plugin "manageiq-providers-ansible_tower"
 c2c_manageiq_plugin "manageiq-schema", "dev"
 
 # Unmodified gems
@@ -89,9 +94,11 @@ gem "american_date"
 # This default is used to automatically require all of our gems in processes that don't specify which bundler groups they want.
 #
 ### providers
-
 #gem'manageiq-providers-orange' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-orange.git", :branch=>"dev-aniket"
-c2c_manageiq_plugin "manageiq-providers-orange", "dev"
+#c2c_manageiq_plugin "manageiq-providers-orange", "dev"
+group :orange, :manageiq_default do
+  manageiq_orange_plugin "manageiq-providers-orange"
+end
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
