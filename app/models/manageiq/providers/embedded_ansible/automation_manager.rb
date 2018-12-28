@@ -10,7 +10,6 @@ class ManageIQ::Providers::EmbeddedAnsible::AutomationManager < ManageIQ::Provid
   require_nested :VaultCredential
   require_nested :NetworkCredential
   require_nested :OpenstackCredential
-  require_nested :OrangeCredential
   require_nested :ScmCredential
   require_nested :VmwareCredential
   require_nested :RhvCredential
