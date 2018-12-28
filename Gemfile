@@ -250,7 +250,6 @@ unless ENV["APPLIANCE"]
   group :development, :test do
     gem "parallel_tests"
     gem "rspec-rails",      "~>3.6.0"
-    gem "byebug"
   end
 end
 
