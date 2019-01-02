@@ -24,7 +24,7 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
+manageiq_plugin "manageiq-providers-ansible_tower"
 c2c_manageiq_plugin "manageiq-schema", "dev"
 
 # Unmodified gems
@@ -91,7 +91,7 @@ gem "american_date"
 #
 ### providers
 
-#gem'manageiq-providers-telefonica' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
+#gem "manageiq-providers-telefonica" ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
 c2c_manageiq_plugin "manageiq-providers-telefonica", "dev"
 
 group :openstack, :manageiq_default do
@@ -287,4 +287,4 @@ end
 Dir.glob(File.join(__dir__, 'bundler.d/*.rb')).each { |f| eval_gemfile(File.expand_path(f, __dir__)) }
 
 # Added at 2018-08-29 23:12:07 +0530 by root:
-gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"
+# gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"
