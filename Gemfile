@@ -30,7 +30,7 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
 end
 
 manageiq_plugin "manageiq-providers-ansible_tower"
-c2c_manageiq_plugin "manageiq-schema", "dev"
+c2c_manageiq_plugin "manageiq-schema", "dev-orange"
 
 # Unmodified gems
 gem "activerecord-id_regions",        "~>0.2.0"
