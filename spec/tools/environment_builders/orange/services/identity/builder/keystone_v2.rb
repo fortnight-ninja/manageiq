@@ -40,13 +40,13 @@ module Orange
               end
               @projects.each do |p|
                 puts "Creating role {:name => '#{role}', :tenant_id => '#{p.name}'} role in "\
-                     "Fog::Identity::Orange:Roles"
+                     "Fog::Identity::Openstack:Roles"
                 begin
                   p.grant_user_role(admin_user.id, admin_role.id)
                 rescue Excon::Errors::Conflict
                   # Tenant already has the admin role
                   puts "Finding role {:name => '#{role}', :tenant_id => '#{p.name}'} role in"\
-                       " Fog::Identity::Orange:Roles"
+                       " Fog::Identity::Openstack:Roles"
                 end
               end
             end
