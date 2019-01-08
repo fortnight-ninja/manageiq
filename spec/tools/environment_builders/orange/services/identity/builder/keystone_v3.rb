@@ -58,13 +58,13 @@ module Orange
               admin_role = @service.roles.all(:domain_id => domain_id).detect { |x| x.name == role }
               @projects.each do |p|
                 puts "Creating role {:name => '#{role}', :tenant_id => '#{p.name}'} role in "\
-                     "Fog::Identity::Orange:Roles"
+                     "Fog::Identity::Openstack:Roles"
                 begin
                   p.grant_role_to_user(admin_role.id, admin_user.id)
                 rescue Excon::Errors::Conflict
                   # Tenant already has the admin role
                   puts "Finding role {:name => 'admin', :tenant_id => '#{p.name}'} role in "\
-                       "Fog::Identity::Orange:Roles"
+                       "Fog::Identity::Openstack:Roles"
                 end
               end
             end
