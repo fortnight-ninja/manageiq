@@ -11,12 +11,9 @@ class Classification < ApplicationRecord
 
   validates :description, :presence => true, :length => {:maximum => 255}
   validates :description, :uniqueness => {:scope => [:parent_id]}, :if => proc { |c|
-    cond = ["parent_id = ? AND description = ?", c.parent_id, c.description]
-    unless c.new_record?
-      cond.first << " AND id != ?"
-      cond << c.id
-    end
-    c.class.in_region(region_id).exists?(cond)
+    cond = c.class.in_region(region_id).where(:parent_id => c.parent_id, :description => c.description)
+    cond = cond.where.not(:id => c.id) unless c.new_record?
+    cond.exists?
   }
 
   NAME_MAX_LENGTH = 50
@@ -49,11 +46,11 @@ class Classification < ApplicationRecord
   def self.hash_all_by_type_and_name(conditions = {})
     ret = {}
 
-    where(conditions).where(:parent_id => 0).includes(:tag).each do |c|
+    where(conditions).is_category.includes(:tag).each do |c|
       ret.store_path(c.name, :category, c)
     end
 
-    where(conditions).where.not(:parent_id => 0).includes(:tag, :parent => :tag).each do |e|
+    where(conditions).is_entry.includes(:tag, :parent => :tag).each do |e|
       ret.store_path(e.parent.name, :entry, e.name, e) unless e.parent.nil?
     end
 
@@ -203,14 +200,12 @@ class Classification < ApplicationRecord
   end
 
   def self.categories(region_id = my_region_number, ns = DEFAULT_NAMESPACE)
-    cats = where(:classifications => {:parent_id => 0}).includes(:tag, :children)
-    cats = cats.in_region(region_id) if region_id
+    cats = is_category.in_region(region_id).includes(:tag, :children)
     cats.select { |c| c.ns == ns }
   end
 
   def self.category_names_for_perf_by_tag(region_id = my_region_number, ns = DEFAULT_NAMESPACE)
-    in_region(region_id)
-      .where(:parent_id => 0, :perf_by_tag => true)
+    in_region(region_id).is_category.where(:perf_by_tag => true)
       .includes(:tag)
       .collect { |c| c.name if c.tag2ns(c.tag.name) == ns }
       .compact
@@ -333,12 +328,11 @@ class Classification < ApplicationRecord
   end
 
   def self.find_by_name(name, region_id = my_region_number, ns = DEFAULT_NAMESPACE, parent_id = 0)
-    tag = Tag.find_by_classification_name(name, region_id, ns, parent_id)
-    find_by(:tag_id => tag.id) if tag
+    find_by_names([name], region_id, ns, parent_id).first
   end
 
-  def self.find_by_names(names, region_id = my_region_number, ns = DEFAULT_NAMESPACE)
-    tag_names = names.map { |name| Classification.name2tag(name, 0, ns) }
+  def self.find_by_names(names, region_id = my_region_number, ns = DEFAULT_NAMESPACE, parent_id = 0)
+    tag_names = names.map { |name| name2tag(name, parent_id, ns) }
     # NOTE: tags is a subselect - not an array of ids
     tags = Tag.in_region(region_id).where(:name => tag_names).select(:id)
     where(:tag_id => tags)
@@ -529,11 +523,13 @@ class Classification < ApplicationRecord
   private_class_method :tag2human
 
   def find_tag
-    Tag.find_by_classification_name(name, region_id, ns, parent_id)
+    tag_name = Classification.name2tag(name, parent_id, ns)
+    Tag.in_region(region_id).find_by(:name => tag_name)
   end
 
   def save_tag
-    self.tag = Tag.find_or_create_by_classification_name(name, region_id, ns, parent_id)
+    tag_name = Classification.name2tag(name, parent_id, ns)
+    self.tag = Tag.in_region(region_id).find_or_create_by(:name => tag_name)
   end
 
   def delete_all_entries

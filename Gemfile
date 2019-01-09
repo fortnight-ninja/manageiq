@@ -47,7 +47,7 @@ gem "gettext_i18n_rails_js",          "~>1.3.0"
 gem "hamlit",                         "~>2.8.5"
 gem "highline",                       "~>1.6.21",      :require => false
 gem "inifile",                        "~>3.0",         :require => false
-gem "inventory_refresh",              "~>0.1.1",       :require => false
+gem "inventory_refresh",              "~>0.1.2",       :require => false
 gem "kubeclient",                     "~>4.0",         :require => false # For scaling pods at runtime
 gem "linux_admin",                    "~>1.2.1",       :require => false
 gem "log_decorator",                  "~>0.1",         :require => false
@@ -192,7 +192,7 @@ group :seed, :manageiq_default do
 end
 
 group :smartstate, :manageiq_default do
-  gem "manageiq-smartstate",            "~>0.2.14",       :require => false
+  gem "manageiq-smartstate",            "~>0.2.18",       :require => false
 end
 
 group :consumption, :manageiq_default do
