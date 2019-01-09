@@ -655,6 +655,7 @@ class VmOrTemplate < ApplicationRecord
   #
 
   def disconnect_inv
+    disconnect_storage
     disconnect_ems
 
     classify_with_parent_folder_path(false)
@@ -664,7 +665,6 @@ class VmOrTemplate < ApplicationRecord
     end
 
     disconnect_host
-    disconnect_storage
     disconnect_stack if respond_to?(:orchestration_stack)
   end
 
