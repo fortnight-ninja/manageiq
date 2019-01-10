@@ -139,6 +139,17 @@
     search_key: _hidden_
     db: Vm
 - attributes:
+    name: default_Platform / Orange
+    description: Platform / Orange
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: Vm-type
+          value: ManageIQ::Providers::Orange::CloudManager::Vm
+    search_type: default
+    search_key: _hidden_
+    db: Vm
+- attributes:
     name: default_Platform / Redhat
     description: Platform / Redhat
     filter: !ruby/object:MiqExpression
@@ -597,6 +608,17 @@
     search_key: _hidden_
     db: MiqTemplate
 - attributes:
+    name: default_Platform / Orange
+    description: Platform / Orange
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: MiqTemplate-type
+          value: ManageIQ::Providers::Orange::CloudManager::Template
+    search_type: default
+    search_key: _hidden_
+    db: MiqTemplate
+- attributes:
     name: default_Platform / Redhat
     description: Platform / Redhat
     filter: !ruby/object:MiqExpression
@@ -923,6 +945,17 @@
     search_key: _hidden_
     db: ManageIQ::Providers::CloudManager::Template
 - attributes:
+    name: default_Platform / Orange
+    description: Platform / Orange
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: TemplateCloud-type
+          value: ManageIQ::Providers::Orange::CloudManager::Template
+    search_type: default
+    search_key: _hidden_
+    db: ManageIQ::Providers::CloudManager::Template
+- attributes:
     name: default_Status / Retired
     description: Status / Retired
     filter: !ruby/object:MiqExpression
@@ -1076,6 +1109,17 @@
         "=":
           field: VmCloud-type
           value: ManageIQ::Providers::Telefonica::CloudManager::Vm
+    search_type: default
+    search_key: _hidden_
+    db: ManageIQ::Providers::CloudManager::Vm
+- attributes:
+    name: default_Platform / Orange
+    description: Platform / Orange
+    filter: !ruby/object:MiqExpression
+      exp:
+        "=":
+          field: VmCloud-type
+          value: ManageIQ::Providers::Orange::CloudManager::Vm
     search_type: default
     search_key: _hidden_
     db: ManageIQ::Providers::CloudManager::Vm

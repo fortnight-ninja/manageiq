@@ -48,12 +48,15 @@ MIQ_WORKER_TYPES = {
   "ManageIQ::Providers::Telefonica::CloudManager::EventCatcher"                  => %i(manageiq_default),
   "ManageIQ::Providers::Telefonica::CloudManager::MetricsCollectorWorker"        => %i(manageiq_default),
   "ManageIQ::Providers::Telefonica::CloudManager::RefreshWorker"                 => %i(manageiq_default),
-  # "ManageIQ::Providers::Telefonica::InfraManager::EventCatcher"                  => %i(manageiq_default),
-  # "ManageIQ::Providers::Telefonica::InfraManager::MetricsCollectorWorker"        => %i(manageiq_default),
-  # "ManageIQ::Providers::Telefonica::InfraManager::RefreshWorker"                 => %i(manageiq_default),
   "ManageIQ::Providers::Telefonica::NetworkManager::EventCatcher"                => %i(manageiq_default),
   "ManageIQ::Providers::Telefonica::NetworkManager::MetricsCollectorWorker"      => %i(manageiq_default),
   "ManageIQ::Providers::Telefonica::StorageManager::CinderManager::EventCatcher" => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::CloudManager::EventCatcher"                  => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::CloudManager::MetricsCollectorWorker"        => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::CloudManager::RefreshWorker"                 => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::NetworkManager::EventCatcher"                => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::NetworkManager::MetricsCollectorWorker"      => %i(manageiq_default),
+  "ManageIQ::Providers::Orange::StorageManager::CinderManager::EventCatcher" => %i(manageiq_default),
   "ManageIQ::Providers::Redfish::PhysicalInfraManager::EventCatcher"            => %i(manageiq_default),
   "ManageIQ::Providers::Redfish::PhysicalInfraManager::RefreshWorker"           => %i(manageiq_default),
   "ManageIQ::Providers::Redhat::InfraManager::EventCatcher"                     => %i(manageiq_default),
@@ -97,6 +100,8 @@ MIQ_WORKER_TYPES_IN_KILL_ORDER = %w(
   ManageIQ::Providers::Openstack::NetworkManager::MetricsCollectorWorker
   ManageIQ::Providers::Telefonica::CloudManager::MetricsCollectorWorker
   ManageIQ::Providers::Telefonica::NetworkManager::MetricsCollectorWorker
+  ManageIQ::Providers::Orange::CloudManager::MetricsCollectorWorker
+  ManageIQ::Providers::Orange::NetworkManager::MetricsCollectorWorker
   ManageIQ::Providers::Redhat::NetworkManager::MetricsCollectorWorker
   ManageIQ::Providers::Openstack::InfraManager::MetricsCollectorWorker
   EmbeddedAnsibleWorker
@@ -129,6 +134,8 @@ MIQ_WORKER_TYPES_IN_KILL_ORDER = %w(
   ManageIQ::Providers::Openstack::NetworkManager::RefreshWorker
   ManageIQ::Providers::Telefonica::CloudManager::RefreshWorker
   ManageIQ::Providers::Telefonica::NetworkManager::RefreshWorker
+  ManageIQ::Providers::Orange::CloudManager::RefreshWorker
+  ManageIQ::Providers::Orange::NetworkManager::RefreshWorker
   ManageIQ::Providers::Redhat::NetworkManager::RefreshWorker
   ManageIQ::Providers::Openstack::InfraManager::RefreshWorker
   ManageIQ::Providers::StorageManager::CinderManager::RefreshWorker
@@ -152,6 +159,9 @@ MIQ_WORKER_TYPES_IN_KILL_ORDER = %w(
   ManageIQ::Providers::Telefonica::CloudManager::EventCatcher
   ManageIQ::Providers::Telefonica::NetworkManager::EventCatcher
   ManageIQ::Providers::Telefonica::StorageManager::CinderManager::EventCatcher
+  ManageIQ::Providers::Orange::CloudManager::EventCatcher
+  ManageIQ::Providers::Orange::NetworkManager::EventCatcher
+  ManageIQ::Providers::Orange::StorageManager::CinderManager::EventCatcher
   ManageIQ::Providers::Redfish::PhysicalInfraManager::EventCatcher
   ManageIQ::Providers::Redhat::NetworkManager::EventCatcher
   ManageIQ::Providers::Openstack::InfraManager::EventCatcher

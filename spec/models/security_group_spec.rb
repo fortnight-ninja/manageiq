@@ -27,6 +27,9 @@ describe SecurityGroup do
         FactoryBot.create(:network_port_telefonica,
                            :device          => vm,
                            :security_groups => [sg])
+        FactoryBot.create(:network_port_orange,
+                          :device          => vm,
+                          :security_groups => [sg])
       end
       expect(sg.reload.total_vms).to eq(2)
     end
