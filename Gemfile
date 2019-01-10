@@ -92,7 +92,7 @@ gem "american_date"
 ### providers
 
 #gem "manageiq-providers-telefonica" ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
-c2c_manageiq_plugin "manageiq-providers-telefonica", "dev"
+c2c_manageiq_plugin "manageiq-providers-telefonica", "master"
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
