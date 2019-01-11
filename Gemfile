@@ -83,9 +83,6 @@ gem "american_date"
 # This default is used to automatically require all of our gems in processes that don't specify which bundler groups they want.
 #
 ### providers
-gem 'manageiq-providers-telefonica', :path => '../manageiq-providers-telefonica'
-gem 'manageiq-providers-orange', :path => '../manageiq-providers-orange'
-
 group :amazon, :manageiq_default do
   manageiq_plugin "manageiq-providers-amazon"
   gem "amazon_ssa_support",                          :require => false, :git => "https://github.com/ManageIQ/amazon_ssa_support.git", :branch => "master" # Temporary dependency to be moved to manageiq-providers-amazon when officially release
