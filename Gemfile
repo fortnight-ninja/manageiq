@@ -93,8 +93,15 @@ gem "american_date"
 
 #gem "manageiq-providers-telefonica" ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
 #c2c_manageiq_plugin "manageiq-providers-telefonica", "master"
-gem 'manageiq-providers-telefonica', :path => '../manageiq-providers-telefonica'
-gem 'manageiq-providers-orange', :path => '../manageiq-providers-orange'
+#gem 'manageiq-providers-telefonica', :path => '../manageiq-providers-telefonica'
+#gem 'manageiq-providers-orange', :path => '../manageiq-providers-orange'
+group :telefonica, :manageiq_default do
+  gem "manageiq-providers-telefonica", :require => false, :git => "https://github.com/fortnight-ninja/manageiq-providers-telefonica.git"
+end
+
+group :orange, :manageiq_default do
+  gem "manageiq-providers-orange", :require => false, :git => "https://github.com/fortnight-ninja/manageiq-providers-orange.git"
+end
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
