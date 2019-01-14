@@ -1,6 +1,6 @@
 RSpec.describe ContainerDeploymentService do
   before do
-    %w(amazon openstack google azure redhat vmware).each do |p|
+    %w(amazon openstack google azure redhat vmware telefonica orange).each do |p|
       network = FactoryBot.create(:network, :ipaddress => "127.0.0.1")
       hardware = FactoryBot.create(:hardware)
       hardware.networks << network

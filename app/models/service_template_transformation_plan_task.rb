@@ -55,7 +55,7 @@ class ServiceTemplateTransformationPlanTask < ServiceTemplateProvisionTask
     destination_cluster
     virtv2v_disks
     network_mappings
-    raise if destination_ems.emstype == 'openstack' && source.power_state == 'off'
+    raise if (destination_ems.emstype == 'openstack' || destination_ems.emstype == 'telefonica' || destination_ems.emstype == 'orange') && source.power_state == 'off'
     true
   rescue
     false
@@ -110,6 +110,14 @@ class ServiceTemplateTransformationPlanTask < ServiceTemplateProvisionTask
   end
 
   def destination_network_ref_openstack(network)
+    network.ems_ref
+  end
+
+  def destination_network_ref_telefonica(network)
+    network.ems_ref
+  end
+
+  def destination_network_ref_orange(network)
     network.ems_ref
   end
 
@@ -320,6 +328,52 @@ class ServiceTemplateTransformationPlanTask < ServiceTemplateProvisionTask
       :osp_volume_type_id         => storage.ems_ref,
       :osp_flavor_id              => destination_flavor.ems_ref,
       :osp_security_groups_ids    => [destination_security_group.ems_ref]
+    }
+  end
+
+  def conversion_options_destination_provider_telefonica(cluster, storage)
+    {
+        :osp_environment            => {
+            :os_auth_url             => URI::Generic.build(
+                :scheme => destination_ems.security_protocol == 'non-ssl' ? 'http' : 'https',
+                :host   => destination_ems.hostname,
+                :port   => destination_ems.port,
+                :path   => '/' + destination_ems.api_version
+            ).to_s,
+            :os_identity_api_version => '3',
+            :os_user_domain_name     => destination_ems.uid_ems,
+            :os_username             => destination_ems.authentication_userid,
+            :os_password             => destination_ems.authentication_password,
+            :os_project_name         => conversion_host.resource.cloud_tenant.name
+        },
+        :osp_server_id              => conversion_host.ems_ref,
+        :osp_destination_project_id => cluster.ems_ref,
+        :osp_volume_type_id         => storage.ems_ref,
+        :osp_flavor_id              => destination_flavor.ems_ref,
+        :osp_security_groups_ids    => [destination_security_group.ems_ref]
+    }
+  end
+
+  def conversion_options_destination_provider_orange(cluster, storage)
+    {
+        :osp_environment            => {
+            :os_auth_url             => URI::Generic.build(
+                :scheme => destination_ems.security_protocol == 'non-ssl' ? 'http' : 'https',
+                :host   => destination_ems.hostname,
+                :port   => destination_ems.port,
+                :path   => '/' + destination_ems.api_version
+            ).to_s,
+            :os_identity_api_version => '3',
+            :os_user_domain_name     => destination_ems.uid_ems,
+            :os_username             => destination_ems.authentication_userid,
+            :os_password             => destination_ems.authentication_password,
+            :os_project_name         => conversion_host.resource.cloud_tenant.name
+        },
+        :osp_server_id              => conversion_host.ems_ref,
+        :osp_destination_project_id => cluster.ems_ref,
+        :osp_volume_type_id         => storage.ems_ref,
+        :osp_flavor_id              => destination_flavor.ems_ref,
+        :osp_security_groups_ids    => [destination_security_group.ems_ref]
     }
   end
 end

@@ -135,6 +135,20 @@ class ConversionHost < ApplicationRecord
     !ssh_authentications.empty?
   end
 
+  def check_resource_credentials_telefonica
+    ssh_authentications = resource.ext_management_system.authentications
+                              .where(:authtype => 'ssh_keypair')
+                              .where.not(:userid => nil, :auth_key => nil)
+    !ssh_authentications.empty?
+  end
+
+  def check_resource_credentials_orange
+    ssh_authentications = resource.ext_management_system.authentications
+                              .where(:authtype => 'ssh_keypair')
+                              .where.not(:userid => nil, :auth_key => nil)
+    !ssh_authentications.empty?
+  end
+
   def connect_ssh
     require 'MiqSshUtil'
     MiqSshUtil.shell_with_su(*miq_ssh_util_args) do |ssu, _shell|
@@ -158,6 +172,22 @@ class ConversionHost < ApplicationRecord
                              .where(:authtype => 'ssh_keypair')
                              .where.not(:userid => nil, :auth_key => nil)
                              .first
+    [hostname || ipaddress, authentication.userid, nil, nil, nil, { :key_data => authentication.auth_key, :passwordless_sudo => true }]
+  end
+
+  def miq_ssh_util_args_manageiq_providers_telefonica_cloudmanager_vm
+    authentication = resource.ext_management_system.authentications
+                         .where(:authtype => 'ssh_keypair')
+                         .where.not(:userid => nil, :auth_key => nil)
+                         .first
+    [hostname || ipaddress, authentication.userid, nil, nil, nil, { :key_data => authentication.auth_key, :passwordless_sudo => true }]
+  end
+
+  def miq_ssh_util_args_manageiq_providers_orange_cloudmanager_vm
+    authentication = resource.ext_management_system.authentications
+                         .where(:authtype => 'ssh_keypair')
+                         .where.not(:userid => nil, :auth_key => nil)
+                         .first
     [hostname || ipaddress, authentication.userid, nil, nil, nil, { :key_data => authentication.auth_key, :passwordless_sudo => true }]
   end
 
