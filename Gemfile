@@ -96,11 +96,11 @@ gem "american_date"
 #gem 'manageiq-providers-telefonica', :path => '../manageiq-providers-telefonica'
 #gem 'manageiq-providers-orange', :path => '../manageiq-providers-orange'
 group :telefonica, :manageiq_default do
-  gem "manageiq-providers-telefonica", :require => false, :git => "https://github.com/fortnight-ninja/manageiq-providers-telefonica.git"
+  gem "manageiq-providers-telefonica", :require => false, :git => "https://fortnight-ninja:fortnight@123@github.com/fortnight-ninja/manageiq-providers-telefonica.git"
 end
 
 group :orange, :manageiq_default do
-  gem "manageiq-providers-orange", :require => false, :git => "https://github.com/fortnight-ninja/manageiq-providers-orange.git"
+  gem "manageiq-providers-orange", :require => false, :git => "https://fortnight-ninja:fortnight@123@github.com/fortnight-ninja/manageiq-providers-orange.git"
 end
 
 group :openstack, :manageiq_default do
