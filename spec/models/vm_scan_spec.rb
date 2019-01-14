@@ -377,6 +377,7 @@ describe VmScan do
       allow(vm).to receive(:kind_of?).with(ManageIQ::Providers::Openstack::CloudManager::Vm).and_return(true)
       allow(vm).to receive(:kind_of?).with(ManageIQ::Providers::Microsoft::InfraManager::Vm).and_return(false)
       allow(vm).to receive(:kind_of?).with(ManageIQ::Providers::Telefonica::CloudManager::Vm).and_return(false)
+      allow(vm).to receive(:kind_of?).with(ManageIQ::Providers::Orange::CloudManager::Vm).and_return(false)
       vm
     end
     let(:job) { VmScan.new(:context => {}, :options => {}) }

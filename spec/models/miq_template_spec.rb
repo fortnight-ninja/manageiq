@@ -53,6 +53,20 @@ describe MiqTemplate do
     template = FactoryBot.create(:template_openstack)
     expect(template.supports_provisioning?).to be_falsey
 
+    template = FactoryBot.create(:template_telefonica)
+    FactoryBot.create(:ems_telefonica, :miq_templates => [template])
+    expect(template.supports_provisioning?).to be_truthy
+
+    template = FactoryBot.create(:template_telefonica)
+    expect(template.supports_provisioning?).to be_falsey
+
+    template = FactoryBot.create(:template_orange)
+    FactoryBot.create(:ems_orange, :miq_templates => [template])
+    expect(template.supports_provisioning?).to be_truthy
+
+    template = FactoryBot.create(:template_orange)
+    expect(template.supports_provisioning?).to be_falsey
+
     template = FactoryBot.create(:template_microsoft)
     expect(template.supports_provisioning?).to be_falsey
 

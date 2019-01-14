@@ -48,6 +48,8 @@ describe ServiceTemplateOrchestration do
   describe "#orchestration_manager" do
     let(:ems_amazon) { FactoryBot.create(:ems_amazon) }
     let(:ems_openstack) { FactoryBot.create(:ems_openstack) }
+    let(:ems_telefonica) { FactoryBot.create(:ems_telefonica) }
+    let(:ems_orange) { FactoryBot.create(:ems_orange) }
 
     it "initially reads a nil orchestration manager" do
       expect(subject.orchestration_manager).to be_nil
@@ -61,13 +63,31 @@ describe ServiceTemplateOrchestration do
     it "replaces the existing orchestration manager" do
       subject.orchestration_manager = ems_openstack
       subject.orchestration_manager = ems_amazon
+      subject.orchestration_manager = ems_telefonica
+      subject.orchestration_manager = ems_orange
 
       expect(subject.orchestration_manager).to eq(ems_amazon)
       expect(subject.orchestration_manager).not_to eq(ems_openstack)
+      expect(subject.orchestration_manager).not_to eq(ems_telefonica)
+      expect(subject.orchestration_manager).not_to eq(ems_orange)
     end
 
     it "clears the existing orchestration manager" do
       subject.orchestration_manager = ems_openstack
+      subject.orchestration_manager = nil
+
+      expect(subject.orchestration_manager).to be_nil
+    end
+
+    it "clears the existing orchestration manager" do
+      subject.orchestration_manager = ems_telefonica
+      subject.orchestration_manager = nil
+
+      expect(subject.orchestration_manager).to be_nil
+    end
+
+    it "clears the existing orchestration manager" do
+      subject.orchestration_manager = ems_orange
       subject.orchestration_manager = nil
 
       expect(subject.orchestration_manager).to be_nil

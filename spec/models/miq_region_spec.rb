@@ -22,9 +22,11 @@ describe MiqRegion do
         _, _, zone = EvmSpecHelper.create_guid_miq_server_zone
         ems_vmware = FactoryBot.create(:ems_vmware, :zone => zone)
         ems_openstack = FactoryBot.create(:ems_openstack, :zone => zone)
+        ems_telefonica = FactoryBot.create(:ems_telefonica, :zone => zone)
+        ems_orange = FactoryBot.create(:ems_orange, :zone => zone)
         ems_redhat = FactoryBot.create(:ems_redhat, :zone => zone)
 
-        @ems_clouds = [ems_openstack]
+        @ems_clouds = [ems_openstack, ems_telefonica, ems_orange]
         @ems_infras = [ems_redhat, ems_vmware]
 
         @region = MiqRegion.my_region

@@ -47,6 +47,8 @@ describe Zone do
     it "returns the set of ems_clouds" do
       ems_clouds = []
       2.times { ems_clouds << FactoryBot.create(:ems_openstack, :zone => @zone) }
+      2.times { ems_clouds << FactoryBot.create(:ems_telefonica, :zone => @zone) }
+      2.times { ems_clouds << FactoryBot.create(:ems_orange, :zone => @zone) }
       2.times { ems_clouds << FactoryBot.create(:ems_amazon, :zone => @zone) }
       ems_infra = FactoryBot.create(:ems_vmware, :zone => @zone)
 
@@ -58,8 +60,12 @@ describe Zone do
 
     it "returns the set of availability_zones" do
       openstack = FactoryBot.create(:ems_openstack, :zone => @zone)
+      telefonica = FactoryBot.create(:ems_telefonica, :zone => @zone)
+      orange = FactoryBot.create(:ems_orange, :zone => @zone)
       azs = []
       3.times { azs << FactoryBot.create(:availability_zone, :ems_id => openstack.id) }
+      3.times { azs << FactoryBot.create(:availability_zone, :ems_id => telefonica.id) }
+      3.times { azs << FactoryBot.create(:availability_zone, :ems_id => orange.id) }
 
       expect(@zone.availability_zones).to match_array(azs)
     end

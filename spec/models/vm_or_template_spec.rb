@@ -516,6 +516,16 @@ describe VmOrTemplate do
       vm = FactoryBot.create(:vm_openstack)
       expect(vm.supports_migrate?).to eq(false)
     end
+
+    it "returns false for telefonica VM  when queried if it supports migrate operation" do
+      vm = FactoryBot.create(:vm_telefonica)
+      expect(vm.supports_migrate?).to eq(false)
+    end
+
+    it "returns false for orange VM  when queried if it supports migrate operation" do
+      vm = FactoryBot.create(:vm_orange)
+      expect(vm.supports_migrate?).to eq(false)
+    end
   end
 
   context "#supports_live_migrate?" do

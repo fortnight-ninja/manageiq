@@ -17,6 +17,14 @@ describe MiqProvisionRequest do
       ems = FactoryBot.create(:ems_amazon)
       vm = FactoryBot.create(:vm_amazon, :ext_management_system => ems)
       expect(described_class.request_task_class_from('options' => {:src_vm_id => vm.id})).to eq ManageIQ::Providers::Amazon::CloudManager::Provision
+
+      ems = FactoryBot.create(:ems_telefonica)
+      vm = FactoryBot.create(:vm_telefonica, :ext_management_system => ems)
+      expect(described_class.request_task_class_from('options' => {:src_vm_id => vm.id})).to eq ManageIQ::Providers::Telefonica::CloudManager::Provision
+
+      ems = FactoryBot.create(:ems_orange)
+      vm = FactoryBot.create(:vm_orange, :ext_management_system => ems)
+      expect(described_class.request_task_class_from('options' => {:src_vm_id => vm.id})).to eq ManageIQ::Providers::Orange::CloudManager::Provision
     end
 
     it "fails to retrieve the provision class when the vm has no EMS" do

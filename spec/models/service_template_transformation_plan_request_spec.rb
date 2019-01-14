@@ -104,13 +104,22 @@ describe ServiceTemplateTransformationPlanRequest do
 
     context 'conversion host exists in EMS and resource is a Vm' do
       let(:dst_ems) { FactoryBot.create(:ems_openstack) }
+      let(:dst_ems_telefonica) { FactoryBot.create(:ems_telefonica) }
       let(:src_cluster) { FactoryBot.create(:ems_cluster) }
       let(:dst_cloud_tenant) { FactoryBot.create(:cloud_tenant, :ext_management_system => dst_ems) }
+      let(:dst_cloud_tenant_telefonica) { FactoryBot.create(:cloud_tenant, :ext_management_system => dst_ems_telefonica) }
 
       let(:mapping) do
         FactoryBot.create(
           :transformation_mapping,
           :transformation_mapping_items => [TransformationMappingItem.new(:source => src_cluster, :destination => dst_cloud_tenant)]
+        )
+      end
+
+      let(:mapping) do
+        FactoryBot.create(
+            :transformation_mapping,
+            :transformation_mapping_items => [TransformationMappingItem.new(:source => src_cluster, :destination => dst_cloud_tenant_telefonica)]
         )
       end
 
@@ -133,6 +142,7 @@ describe ServiceTemplateTransformationPlanRequest do
 
       it 'returns true' do
         vm = FactoryBot.create(:vm_openstack, :ext_management_system => dst_ems, :cloud_tenant => dst_cloud_tenant)
+        vm = FactoryBot.create(:vm_telefonica, :ext_management_system => dst_ems_telefonica, :cloud_tenant => dst_cloud_tenant_telefonica)
         conversion_host = FactoryBot.create(:conversion_host, :resource => vm)
         expect(request.validate_conversion_hosts).to be true
       end

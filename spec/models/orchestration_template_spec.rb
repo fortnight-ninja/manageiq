@@ -104,21 +104,25 @@ describe OrchestrationTemplate do
     before do
       allow(OrchestrationTemplate).to receive_messages(:eligible_manager_types =>
                                                          [ManageIQ::Providers::Amazon::CloudManager,
-                                                          ManageIQ::Providers::Openstack::CloudManager])
+                                                          ManageIQ::Providers::Openstack::CloudManager,
+                                                          ManageIQ::Providers::Telefonica::CloudManager,
+                                                          ManageIQ::Providers::Orange::CloudManager])
       @template = FactoryBot.create(:orchestration_template)
       @aws = FactoryBot.create(:ems_amazon, :tenant => other_tenant)
       @openstack = FactoryBot.create(:ems_openstack, :tenant => tenant)
+      @telefonica = FactoryBot.create(:ems_telefonica, :tenant => tenant)
+      @orange = FactoryBot.create(:ems_orange, :tenant => tenant)
     end
 
     it "lists all eligible managers for a template" do
       User.with_user(user_admin) do
-        expect(@template.eligible_managers).to match_array([@aws, @openstack])
+        expect(@template.eligible_managers).to match_array([@aws, @openstack, @telefonica, @orange])
       end
     end
 
     it "lists all eligible managers for a template regard to user's tenant" do
       User.with_user(user) do
-        expect(@template.eligible_managers).to match_array([@openstack])
+        expect(@template.eligible_managers).to match_array([@openstack, @telefonica, @orange])
       end
     end
   end

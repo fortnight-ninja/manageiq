@@ -39,8 +39,6 @@ describe ExtManagementSystem do
       "openstack"                   => "OpenStack",
       "openstack_infra"             => "OpenStack Platform Director",
       "openstack_network"           => "OpenStack Network",
-      "telefonica"                  => "Telefonica",
-      "telefonica_network"          => "Telefonica Network",
       "lenovo_ph_infra"             => "Lenovo XClarity",
       "nuage_network"               => "Nuage Network Manager",
       "redfish_ph_infra"            => "Redfish",
@@ -53,7 +51,9 @@ describe ExtManagementSystem do
       "cinder"                      => "Cinder ",
       "swift"                       => "Swift ",
       "telefonica"                  => "Telefonica",
-      "telefonica_network"          => "Telefonica Network"
+      "telefonica_network"          => "Telefonica Network",
+      "orange"                      => "Orange",
+      "orange_network"              => "Orange Network"
     }
   end
 
@@ -432,6 +432,8 @@ describe ExtManagementSystem do
         :azure_cloud     => FactoryGirl.create(:ems_azure,           :zone => zone),
         :google_cloud    => FactoryGirl.create(:ems_google,          :zone => zone),
         :openstack_cloud => FactoryGirl.create(:ems_openstack,       :zone => zone),
+        :telefonica_cloud => FactoryGirl.create(:ems_telefonica,     :zone => zone),
+        :orange_cloud    => FactoryGirl.create(:ems_orange,          :zone => zone),
         :openstack_infra => FactoryGirl.create(:ems_openstack_infra, :zone => zone),
         :vmware_cloud    => FactoryGirl.create(:ems_vmware_cloud,    :zone => zone),
       }
@@ -447,7 +449,7 @@ describe ExtManagementSystem do
       end
 
       # The same for storage managers, i.e. amazon
-      %i(amazon_cloud openstack_cloud).each do |manager_type|
+      %i(amazon_cloud openstack_cloud telefonica_cloud orange_cloud).each do |manager_type|
         emses[manager_type].storage_managers.each do |storage_manager|
           expect(storage_manager.zone_before_pause).to eq(zone)
           expect(storage_manager.zone).to eq(Zone.maintenance_zone)
@@ -508,6 +510,8 @@ describe ExtManagementSystem do
         :azure_cloud     => FactoryGirl.create(:ems_azure,           :zone => zone),
         :google_cloud    => FactoryGirl.create(:ems_google,          :zone => zone),
         :openstack_cloud => FactoryGirl.create(:ems_openstack,       :zone => zone),
+        :telefonica_cloud => FactoryGirl.create(:ems_telefonica,       :zone => zone),
+        :orange_cloud     => FactoryGirl.create(:ems_orange,       :zone => zone),
         :openstack_infra => FactoryGirl.create(:ems_openstack_infra, :zone => zone),
         :vmware_cloud    => FactoryGirl.create(:ems_vmware_cloud,    :zone => zone),
       }
@@ -526,7 +530,7 @@ describe ExtManagementSystem do
       end
 
       # The same for storage managers, i.e. amazon
-      %i(amazon_cloud openstack_cloud).each do |manager_type|
+      %i(amazon_cloud openstack_cloud telefonica_cloud orange_cloud).each do |manager_type|
         emses[manager_type].storage_managers.each do |storage_manager|
           expect(storage_manager.zone_before_pause).to be_nil
           expect(storage_manager.zone).to eq(zone)
