@@ -43,6 +43,14 @@ FactoryBot.define do
     vendor "telefonica"
   end
 
+  factory :template_orange, :class => "ManageIQ::Providers::Orange::CloudManager::Template", :parent => :template_cloud do
+    vendor "orange"
+  end
+
+  factory :volume_template_orange, :class => "ManageIQ::Providers::Orange::CloudManager::VolumeTemplate", :parent => :template_cloud do
+    vendor "orange"
+  end
+
   factory :miq_template do
     name "ubuntu-16.04-stable"
     location "Minneapolis, MN"

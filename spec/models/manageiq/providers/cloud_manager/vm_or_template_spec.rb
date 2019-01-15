@@ -8,6 +8,20 @@ describe ManageIQ::Providers::CloudManager::VmOrTemplate do
 
       expect(described_class.all).to match_array([vm, t])
     end
+
+    it "scopes" do
+      vm = FactoryBot.create(:vm_telefonica)
+      t  = FactoryBot.create(:template_telefonica)
+
+      expect(described_class.all).to match_array([vm, t])
+    end
+
+    it "scopes" do
+      vm = FactoryBot.create(:vm_orange)
+      t  = FactoryBot.create(:template_orange)
+
+      expect(described_class.all).to match_array([vm, t])
+    end
   end
 
   describe "#all_archived" do
@@ -18,6 +32,34 @@ describe ManageIQ::Providers::CloudManager::VmOrTemplate do
       # non archived
       FactoryBot.create(:vm_openstack, :ext_management_system => ems)
       FactoryBot.create(:template_openstack, :ext_management_system => ems)
+      # non cloud
+      FactoryBot.create(:vm_vmware)
+      FactoryBot.create(:template_vmware)
+
+      expect(described_class.archived).to match_array([vm, t])
+    end
+
+    it "scopes" do
+      ems = FactoryBot.create(:ems_telefonica)
+      vm = FactoryBot.create(:vm_telefonica)
+      t  = FactoryBot.create(:template_telefonica)
+      # non archived
+      FactoryBot.create(:vm_telefonica, :ext_management_system => ems)
+      FactoryBot.create(:template_telefonica, :ext_management_system => ems)
+      # non cloud
+      FactoryBot.create(:vm_vmware)
+      FactoryBot.create(:template_vmware)
+
+      expect(described_class.archived).to match_array([vm, t])
+    end
+
+    it "scopes" do
+      ems = FactoryBot.create(:ems_orange)
+      vm = FactoryBot.create(:vm_orange)
+      t  = FactoryBot.create(:template_orange)
+      # non archived
+      FactoryBot.create(:vm_orange, :ext_management_system => ems)
+      FactoryBot.create(:template_orange, :ext_management_system => ems)
       # non cloud
       FactoryBot.create(:vm_vmware)
       FactoryBot.create(:template_vmware)
