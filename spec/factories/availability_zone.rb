@@ -15,7 +15,7 @@ FactoryBot.define do
 
   factory :availability_zone_telefonica, :parent => :availability_zone, :class => "ManageIQ::Providers::Telefonica::CloudManager::AvailabilityZone"
 
-  factory :availability_zone_telefonica_null, :parent => :availability_zone_telefonica, :class => "ManageIQ::Providers::Telefonica::CloudManager::AvailabilityZoneNull"
+  factory :availability_zone_orange, :parent => :availability_zone, :class => "ManageIQ::Providers::Orange::CloudManager::AvailabilityZone"
 
   factory :availability_zone_google, :parent => :availability_zone, :class => "ManageIQ::Providers::Google::CloudManager::AvailabilityZone"
 
