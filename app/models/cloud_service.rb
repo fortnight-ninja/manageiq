@@ -9,7 +9,6 @@ class CloudService < ApplicationRecord
   def fog_service
     connection_options = {:service => source}
     ext_management_system.with_provider_connection(connection_options) do |service|
-      # TODO(pblaho): remove find and used get when https://github.com/fog/fog-openstack/pull/88 is released
       service.services.find { |s| s.id.to_s == ems_ref }
     end
   end
